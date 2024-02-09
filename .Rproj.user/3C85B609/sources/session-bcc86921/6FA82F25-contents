@@ -1,0 +1,18 @@
+context("Correct highest")
+library(data.table)
+#1.
+customer_data <- fread("data_customer.csv")
+personal_data <- fread("data_personal.csv")
+
+#2.
+full_data <- merge(customer_data, personal_data, by="CustomerId")
+
+full_data <- full_data[, Exited:= as.factor(Exited)]
+full_data <- full_data[, Gender:= as.factor(Gender)]
+
+test_that("Test highest bigger than lowest",{
+  highest <- getChurnProbability(full_data, 15653251)
+  lowest <- getChurnProbability(full_data, 15662641)
+  expect_true(expect_true(result1 > result2,
+                          "First result should be bigger than the second result"))
+})

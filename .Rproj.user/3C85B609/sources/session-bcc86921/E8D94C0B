@@ -1,0 +1,26 @@
+{
+    "id": "E8D94C0B",
+    "path": "C:/Users/domin/Dokumente/GetChurn/R/getChurnProbability.R",
+    "project_path": "R/getChurnProbability.R",
+    "type": "r_source",
+    "hash": "11422397",
+    "contents": "",
+    "dirty": false,
+    "created": 1707476074576.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "16,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1707481088,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1707481088605,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,71 @@
+
+setwd("C:/Users/domin/OneDrive - Universität Zürich UZH/FS2024/R - a non-technical intro to big data techinques, team work and interactive visualization")
+
+library(data.table)
+library(lubridate)
+library(Hmisc)
+library(ggplot2)
+library(grid)
+library(gridExtra)
+library(dplyr)
+library(profvis)
+library(microbenchmark)
+library(doParallel)
+library(foreach)
+
+#1.
+customer_data <- fread("data_customer.csv")
+personal_data <- fread("data_personal.csv")
+
+#2.
+full_data <- merge(customer_data, personal_data, by="CustomerId")
+
+full_data <- full_data[, Exited:= as.factor(Exited)]
+full_data <- full_data[, Gender:= as.factor(Gender)]
+
+str(full_data)
+summary(full_data)
+
+#3.
+churn_prob_model <- glm(full_data$Exited ~ full_data$CreditScore + full_data$Gender + full_data$Age + full_data$Tenure + full_data$Balance + full_data$NumOfProducts + full_data$HasCrCard + full_data$IsActiveMember + full_data$EstimatedSalary, family = "binomial")
+
+anova(churn_prob_model)
+summary(churn_prob_model)
+
+churn_pred <- predict(churn_prob_model, full_data, type = "response")
+
+full_data <- cbind(full_data, churn_pred)
+
+cust_highest_churn <- full_data[which.max(full_data$churn_pred)]
+cust_highest_churn
+
+cust_lowest_churn <- full_data[which.min(full_data$churn_pred)]
+cust_lowest_churn
+
+mean_churn_men <- full_data[Gender == "Male", mean(churn_pred)]
+mean_churn_men
+
+mean_churn_women <- full_data[Gender == "Female", mean(churn_pred)]
+mean_churn_women
+
+full_data[CustomerId==15662641,churn_pred]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
